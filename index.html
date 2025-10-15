@@ -26,6 +26,14 @@
             width: 100%;
         }
         
+        /* NOUVELLE STRUCTURE POUR GÉRER LE SCROLL */
+        .page-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
         /* Nouvelle disposition des images avec vw/vh */
         .background-images {
             position: fixed;
@@ -303,15 +311,17 @@
             filter: brightness(0) invert(1);
         }
         
-        /* Footer avec arrière-plan sombre */
+        /* Footer avec arrière-plan sombre - CORRECTION */
         footer {
             text-align: center;
             color: #ffffff;
             font-size: 12px;
-            margin-top: auto;
             background-color: #47525e;
             border-radius: 0;
             width: 100%;
+            /* Supprimer margin-top: auto et ajouter ces propriétés */
+            position: relative;
+            z-index: 10;
         }
 
         .footer-content {
@@ -619,108 +629,111 @@
     </style>
 </head>
 <body>
-    <!-- Nouvelle disposition des images -->
-    <div class="background-images">
-        <div class="bg-image bg-1"></div>
-        <div class="bg-image bg-2"></div>
-        <div class="bg-image bg-3"></div>
-        <div class="bg-image bg-4"></div>
-    </div>
-    
-    <!-- Popup messages -->
-    <div id="success-popup" class="popup-message popup-success" style="display: none;">
-        <h3>✅ Enregistrement réussi !</h3>
-        <p>Vos informations ont été enregistrées avec succès.</p>
-    </div>
-
-    <div class="container">
-        <div class="main-content">
-            <div class="form-container">
-                <h1>Enregistrez vos informations</h1>
-                
-                <form id="registration-form">
-                    <div class="form-group">
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="mr" name="civility" value="M." required>
-                                <label for="mr">M.</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="mrs" name="civility" value="Mme">
-                                <label for="mrs">Mme</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Nom et Prénom côte à côte -->
-                    <div class="form-group name-fields">
-                        <div>
-                            <label for="lastname">Nom</label>
-                            <input type="text" id="lastname" name="lastname" required>
-                        </div>
-                        <div>
-                            <label for="firstname">Prénom</label>
-                            <input type="text" id="firstname" name="firstname" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="birthdate">Date de naissance</label>
-                        <input type="date" id="birthdate" name="birthdate" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone">Téléphone</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="store">Magasin</label>
-                        <select id="store" name="store" required>
-                            <option value="">Sélectionnez un magasin</option>
-                            <option value="aeria_mall_casablanca">AERIA MALL – CASABLANCA</option>
-                            <option value="anfa_place_casablanca">ANFA PLACE – CASABLANCA</option>
-                            <option value="mall_carousel_rabat">MALL DU CAROUSEL – RABAT</option>
-                            <option value="carre_eden_marrakech">CARRE EDEN - MARRAKECH</option>
-                            <option value="ibn_battouta_tanger">IBN BATTOUTA - TANGER</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit">Soumettre</button>
-                </form>
-            </div>
+    <!-- NOUVELLE STRUCTURE POUR GÉRER LE SCROLL -->
+    <div class="page-wrapper">
+        <!-- Nouvelle disposition des images -->
+        <div class="background-images">
+            <div class="bg-image bg-1"></div>
+            <div class="bg-image bg-2"></div>
+            <div class="bg-image bg-3"></div>
+            <div class="bg-image bg-4"></div>
         </div>
-    </div>
-    
-    <!-- Section logos des marques dans le footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="brands-section">
-                <div class="brands-logos">
-                    <div class="brand-logo">
-                        <img src="Rowenta_logo.svg" alt="Rowenta" onerror="this.style.display='none'">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="Moulinex_Logo.svg" alt="Moulinex" onerror="this.style.display='none'">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="Tefal_logo.svg" alt="Tefal" onerror="this.style.display='none'">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="Krups_Logo.svg" alt="Krups" onerror="this.style.display='none'">
-                    </div>
+        
+        <!-- Popup messages -->
+        <div id="success-popup" class="popup-message popup-success" style="display: none;">
+            <h3>✅ Enregistrement réussi !</h3>
+            <p>Vos informations ont été enregistrées avec succès.</p>
+        </div>
+
+        <div class="container">
+            <div class="main-content">
+                <div class="form-container">
+                    <h1>Enregistrez vos informations</h1>
+                    
+                    <form id="registration-form">
+                        <div class="form-group">
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="mr" name="civility" value="M." required>
+                                    <label for="mr">M.</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="mrs" name="civility" value="Mme">
+                                    <label for="mrs">Mme</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Nom et Prénom côte à côte -->
+                        <div class="form-group name-fields">
+                            <div>
+                                <label for="lastname">Nom</label>
+                                <input type="text" id="lastname" name="lastname" required>
+                            </div>
+                            <div>
+                                <label for="firstname">Prénom</label>
+                                <input type="text" id="firstname" name="firstname" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="birthdate">Date de naissance</label>
+                            <input type="date" id="birthdate" name="birthdate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="store">Magasin</label>
+                            <select id="store" name="store" required>
+                                <option value="">Sélectionnez un magasin</option>
+                                <option value="aeria_mall_casablanca">AERIA MALL – CASABLANCA</option>
+                                <option value="anfa_place_casablanca">ANFA PLACE – CASABLANCA</option>
+                                <option value="mall_carousel_rabat">MALL DU CAROUSEL – RABAT</option>
+                                <option value="carre_eden_marrakech">CARRE EDEN - MARRAKECH</option>
+                                <option value="ibn_battouta_tanger">IBN BATTOUTA - TANGER</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit">Soumettre</button>
+                    </form>
                 </div>
             </div>
         </div>
-        <div class="copyright-container">
-            <p>COPYRIGHT &copy; GROUPESEB 2025 / Tous les droits sont réservés.</p>
-        </div>
-    </footer>
+        
+        <!-- Section logos des marques dans le footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="brands-section">
+                    <div class="brands-logos">
+                        <div class="brand-logo">
+                            <img src="Rowenta_logo.svg" alt="Rowenta" onerror="this.style.display='none'">
+                        </div>
+                        <div class="brand-logo">
+                            <img src="Moulinex_Logo.svg" alt="Moulinex" onerror="this.style.display='none'">
+                        </div>
+                        <div class="brand-logo">
+                            <img src="Tefal_logo.svg" alt="Tefal" onerror="this.style.display='none'">
+                        </div>
+                        <div class="brand-logo">
+                            <img src="Krups_Logo.svg" alt="Krups" onerror="this.style.display='none'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-container">
+                <p>COPYRIGHT &copy; GROUPESEB 2025 / Tous les droits sont réservés.</p>
+            </div>
+        </footer>
+    </div>
 
     <script>
         // Gestion de la soumission du formulaire
