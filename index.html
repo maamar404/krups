@@ -181,7 +181,7 @@
         
         .radio-option input {
             width: auto;
-            transform: scale(1.2);
+            transform: scale(1.2); /* Taille normale pour desktop */
         }
 
         /* Suppression du focus outline par défaut et ajout d'un style personnalisé */
@@ -358,6 +358,23 @@
         .field-error {
             border-color: #d63031 !important;
         }
+        
+        /* CORRECTION DES BOUTONS RADIO SUR MOBILE */
+        @media (max-width: 768px) {
+            .radio-option input {
+                transform: scale(1); /* Taille normale sur mobile */
+            }
+            
+            .radio-group {
+                padding: 10px 12px; /* Padding réduit */
+                min-height: 44px; /* Hauteur réduite */
+                gap: 10px; /* Espacement réduit */
+            }
+            
+            .radio-option label {
+                font-size: 13px; /* Texte légèrement plus petit */
+            }
+        }
                 
         @media (max-width: 1200px) {
             /* Adaptation des images pour tablette */
@@ -430,8 +447,8 @@
             }
             
             .radio-group {
-                padding: 14px 12px;
-                min-height: 52px;
+                padding: 10px 12px; /* CORRECTION */
+                min-height: 44px; /* CORRECTION */
             }
             
             button {
@@ -523,12 +540,17 @@
             .radio-group {
                 flex-direction: row;
                 gap: 5px;
-                padding: 5px 15px;
-                align-items: flex-start;
+                padding: 8px 12px; /* CORRECTION */
+                align-items: center; /* CORRECTION */
+                min-height: 42px; /* CORRECTION */
             }
             
             .radio-option {
-                width: 100%;
+                width: auto; /* CORRECTION */
+            }
+            
+            .radio-option input {
+                transform: scale(1); /* Taille normale */
             }
             
             button {
@@ -603,6 +625,11 @@
             input, select {
                 padding: 12px 10px;
                 min-height: 48px;
+            }
+            
+            .radio-group {
+                padding: 6px 10px; /* CORRECTION */
+                min-height: 40px; /* CORRECTION */
             }
             
             button {
