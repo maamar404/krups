@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="icon.ico">
+    <title>KRUPS</title>
+    <style>
+        /* Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #47525e;
+            color: #333;
+            line-height: 1.4;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        
+        /* Nouvelle disposition des images */
+        .background-images {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .bg-image {
+            position: absolute;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .bg-1 {
+            background-image: url('images/ddd.png');
+            width: 480px;
+            height: 250px;
+            top: 70px;
+            left: 75px;
+        }
+        
+        .bg-2 {
+            background-image: url('images/d.png');
+            width: 450px;
+            height: 330px;
+            top: 20px;
+            right: 150px;
+        }
+        
+        .bg-3 {
+            background-image: url('images/dd.png');
+            width: 430px;
+            height: 220px;
+            bottom: 100px;
+            left: 140px;
+        }
+        
+        .bg-4 {
+            background-image: url('images/dddd.png');
+            width: 280px;
+            height: 270px;
+            bottom: 30px;
+            right: 270px;
+        }
+        
+        .container {
+            max-width: 450px;
+            margin: 15px auto;
+            margin-top: 50px;
+            padding: 12px;
+            flex: 1;
+        }
+        
+        /* Section principale */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Formulaire compact */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 3px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            padding: 40px;
+            width: 100%;
+            backdrop-filter: blur(5px);
+        }
+        
+        h1 {
+            text-align: center;
+            margin: 15px 0 18px 0;
+            color: #47525e;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 14px;
+        }
+        
+        /* Nouveau conteneur pour Nom et Prénom côte à côte */
+        .name-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #47525e;
+            font-size: 13px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 9px 11px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 13px;
+            transition: all 0.3s;
+            background-color: #fefbf6;
+        }
+        
+        input:focus, select:focus {
+            border-color: #47525e;
+            outline: none;
+            background-color: #fff;
+            box-shadow: 0 0 0 2px rgba(71, 82, 94, 0.2);
+        }
+   
+        .radio-group {
+            display: flex;
+            gap: 12px;
+            background-color: #fefbf6;
+            padding: 8px 10px;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .radio-option input {
+            width: auto;
+        }
+
+        /* Suppression du focus outline par défaut et ajout d'un style personnalisé */
+        .radio-option input[type="radio"]:focus {
+            outline: none;
+            box-shadow: none !important;
+        }
+
+        
+        .radio-option label {
+            margin-bottom: 0;
+            font-weight: normal;
+            font-size: 13px;
+        }
+        
+        button {
+            background-color: #47525e;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            margin: 8px 0 12px 0;
+        }
+        
+        button:hover {
+            background-color: #6b727a;
+        }
+        
+         /* Popup messages */
+        .popup-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 16px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            animation: slideDown 0.3s ease-out;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .popup-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .popup-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        .popup-hide {
+            animation: slideUp 0.3s ease-in forwards;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+        }
+        
+        /* Section logos des marques */
+        .brands-section {
+            margin: 20px 0;
+            text-align: center;
+            margin-bottom: 0px;
+        }
+        
+        .brands-title {
+            margin-bottom: 12px;
+            color: #2c3e50;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .brands-logos {
+            display: flex;
+            justify-content: center;
+            gap: 100px;
+            flex-wrap: wrap;
+        }
+        
+        .brand-logo {
+            width: 120px;
+            height: 60px;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: none;
+            padding: 6px;
+        }
+        
+        .brand-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            filter: brightness(0) invert(1); /* Rend les logos blancs */
+        }
+        
+        /* Footer avec arrière-plan sombre */
+        footer {
+            text-align: center;
+            color: #ffffff;
+            font-size: 12px;
+            margin-top: auto; /* Push footer to bottom */
+            background-color: #47525e;
+            border-radius: 0;
+            width: 100%;
+            padding: 15px 0 0 0; /* Remove bottom padding */
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .copyright-container {
+            background-color: #5a6775; /* Background color for copyright paragraph */
+            width: 100%;
+            padding: 8px 0;
+            margin-top: 10px;
+            margin-bottom: 0; /* Remove any bottom margin */
+        }
+
+        .copyright-container p {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Messages d'erreur */
+        .error {
+            color: #d63031;
+            font-size: 11px;
+            margin-top: 3px;
+            display: none;
+        }
+        
+        .error.show {
+            display: block;
+        }
+        
+        .field-error {
+            border-color: #d63031 !important;
+        }
+                
+        @media (max-width: 1200px) {
+            /* Adaptation des images pour mobile */
+            .bg-1 {
+                width: 400px;
+                height: 250px;
+                top: 70px;
+                left: 20px;
+            }
+            
+            .bg-2 {
+                width: 350px;
+                height: 300px;
+                top: 10px;
+                right: 50px;
+            }
+            
+            .bg-3 {
+                width: 350px;
+                height: 250px;
+                bottom: 70px;
+                left: 70px;
+            }
+            
+            .bg-4 {
+                width: 290px;
+                height: 300px;
+                bottom: 20px;
+                right: 50px;
+            }
+
+            .brands-logos {
+                gap: 45px;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                max-width: 100%;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 18px;
+                margin: 12px 0 15px 0;
+            }
+            
+            input, select {
+                padding: 8px 10px;
+            }
+            
+            .brands-logos {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                justify-items: center;
+            }
+            
+            .brand-logo {
+                width: 100px;
+                height: 55px;
+            }
+            
+            /* Further reduce footer height on mobile */
+            footer {
+                padding: 10px 0 0 0; /* Remove bottom padding */
+            }
+            
+            .copyright-container {
+                padding: 6px 0;
+                font-size: 11px;
+            }
+            
+            /* Adaptation des images pour mobile */
+            .bg-1 {
+                width: 220px;
+                height: 250px;
+                top: 40px;
+                left: 10px;
+            }
+            
+            .bg-2 {
+                width: 200px;
+                height: 300px;
+                top: 10px;
+                right: 20px;
+            }
+            
+            .bg-3 {
+                width: 200px;
+                height: 250px;
+                bottom: 70px;
+                left: 15px;
+            }
+            
+            .bg-4 {
+                width: 190px;
+                height: 250px;
+                bottom: 50px;
+                right: 30px;
+            }
+
+            .popup-message {
+                top: 10px;
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 20px;
+            }
+            
+            /* Sur mobile très petit, retour à la disposition verticale */
+            .name-fields {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 6px;
+            }
+            
+            .brands-logos {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .brand-logo {
+                width: 100%;
+                height: 45px;
+            }
+            
+            /* Even smaller footer on very small screens */
+            footer {
+                padding: 8px 0 0 0; /* Remove bottom padding */
+            }
+            
+            .copyright-container {
+                padding: 5px 0;
+                font-size: 10px;
+                margin-top: 8px;
+            }
+            
+            h1 {
+                font-size: 17px;
+                margin: 10px 0 12px 0;
+            }
+            
+            button {
+                margin: 6px 0 10px 0;
+                padding: 9px 14px;
+            }
+            
+            /* Adaptation des images pour mobile très petit */
+            .bg-1 {
+                width: 60px;
+                height: 50px;
+                top: 30px;
+                left: 5px;
+            }
+            
+            .bg-2 {
+                width: 50px;
+                height: 20px;
+                top: 10px;
+                right: 10px;
+            }
+            
+            .bg-3 {
+                width: 50px;
+                height: 20px;
+                bottom: 30px;
+                left: 5px;
+            }
+            
+            .bg-4 {
+                width: 50px;
+                height: 20px;
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Nouvelle disposition des images -->
+    <div class="background-images">
+        <div class="bg-image bg-1"></div>
+        <div class="bg-image bg-2"></div>
+        <div class="bg-image bg-3"></div>
+        <div class="bg-image bg-4"></div>
+    </div>
+    
+    <!-- Popup messages -->
+    <div id="success-popup" class="popup-message popup-success" style="display: none;">
+        <h3>✅ Enregistrement réussi !</h3>
+        <p>Vos informations ont été enregistrées avec succès.</p>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <div class="form-container">
+                <h1>Enregistrez vos informations</h1>
+                
+                <form id="registration-form">
+                    <div class="form-group">
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="mr" name="civility" value="M." required>
+                                <label for="mr">M.</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="mrs" name="civility" value="Mme">
+                                <label for="mrs">Mme</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Nom et Prénom côte à côte -->
+                    <div class="form-group name-fields">
+                        <div>
+                            <label for="lastname">Nom</label>
+                            <input type="text" id="lastname" name="lastname" required>
+                        </div>
+                        <div>
+                            <label for="firstname">Prénom</label>
+                            <input type="text" id="firstname" name="firstname" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthdate">Date de naissance</label>
+                        <input type="date" id="birthdate" name="birthdate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Téléphone</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="store">Magasin</label>
+                        <select id="store" name="store" required>
+                            <option value="">Sélectionnez un magasin</option>
+                            <option value="Anfa">Anfa</option>
+                            <option value="Maarif">Maarif</option>
+                            <option value="Bourgone">Bourgone</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit">Soumettre</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Section logos des marques dans le footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="brands-section">
+                <div class="brands-logos">
+                    <div class="brand-logo">
+                        <img src="Rowenta_logo.svg" alt="Rowenta" onerror="this.style.display='none'">
+                    </div>
+                    <div class="brand-logo">
+                        <img src="Moulinex_Logo.svg" alt="Moulinex" onerror="this.style.display='none'">
+                    </div>
+                    <div class="brand-logo">
+                        <img src="Tefal_logo.svg" alt="Tefal" onerror="this.style.display='none'">
+                    </div>
+                    <div class="brand-logo">
+                        <img src="Krups_Logo.svg" alt="Krups" onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-container">
+            <p>COPYRIGHT &copy; GROUPESEB 2025 / Tous les droits sont réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Gestion de la soumission du formulaire
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateForm()) {
+                // Afficher le message de succès
+                showSuccessMessage();
+                
+                // Réinitialiser le formulaire
+                this.reset();
+            }
+        });
+
+        // Fonction pour afficher le message de succès
+        function showSuccessMessage() {
+            const successPopup = document.getElementById('success-popup');
+            successPopup.style.display = 'block';
+            
+            // Masquer automatiquement après 5 secondes
+            setTimeout(() => {
+                hidePopup(successPopup);
+            }, 5000);
+        }
+
+        // Fonction pour masquer un popup
+        function hidePopup(popup) {
+            if (popup) {
+                popup.classList.add('popup-hide');
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                    popup.classList.remove('popup-hide');
+                }, 300);
+            }
+        }
+
+        // Permettre de fermer manuellement en cliquant
+        document.getElementById('success-popup').addEventListener('click', function() {
+            hidePopup(this);
+        });
+
+        // Validation côté client
+        function validateForm() {
+            let isValid = true;
+            const form = document.getElementById('registration-form');
+            
+            // Cacher les erreurs précédentes
+            hideAllErrors();
+            
+            // Vérifier les champs requis
+            const requiredFields = ['civility', 'lastname', 'firstname', 'birthdate', 'phone', 'email', 'store'];
+            
+            requiredFields.forEach(field => {
+                const input = form.querySelector(`[name="${field}"]`);
+                if (!input.value.trim()) {
+                    showFieldError(field, 'Ce champ est obligatoire');
+                    isValid = false;
+                }
+            });
+            
+            // Validation spécifique pour la civilité
+            const civilitySelected = form.querySelector('input[name="civility"]:checked');
+            if (!civilitySelected) {
+                showFieldError('civility', 'Veuillez sélectionner une civilité');
+                isValid = false;
+            }
+            
+            // Validation spécifique pour la date de naissance
+            const birthdate = form.querySelector('[name="birthdate"]').value;
+            if (birthdate) {
+                const birthDate = new Date(birthdate);
+                const today = new Date();
+                const age = today.getFullYear() - birthDate.getFullYear();
+                
+                if (age < 18) {
+                    showFieldError('birthdate', 'Vous devez avoir au moins 18 ans');
+                    isValid = false;
+                }
+            }
+            
+            // Validation de l'email
+            const email = form.querySelector('[name="email"]').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email && !emailRegex.test(email)) {
+                showFieldError('email', 'Veuillez saisir un email valide');
+                isValid = false;
+            }
+            
+            // Validation du téléphone (format français simplifié)
+            const phone = form.querySelector('[name="phone"]').value;
+            const phoneRegex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
+            if (phone && !phoneRegex.test(phone)) {
+                showFieldError('phone', 'Veuillez saisir un numéro de téléphone valide');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        // Fonctions d'affichage des erreurs
+        function showFieldError(fieldName, message) {
+            const field = document.querySelector(`[name="${fieldName}"]`);
+            if (field) {
+                field.classList.add('field-error');
+                
+                let errorElement = field.parentNode.querySelector('.error');
+                if (!errorElement) {
+                    errorElement = document.createElement('div');
+                    errorElement.className = 'error';
+                    field.parentNode.appendChild(errorElement);
+                }
+                
+                errorElement.textContent = message;
+                errorElement.classList.add('show');
+            }
+        }
+
+        function hideAllErrors() {
+            document.querySelectorAll('.error').forEach(error => {
+                error.classList.remove('show');
+            });
+            
+            document.querySelectorAll('.field-error').forEach(field => {
+                field.classList.remove('field-error');
+            });
+        }
+    </script>
+</body>
+</html>
