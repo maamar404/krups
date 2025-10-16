@@ -197,21 +197,20 @@
             gap: 8px;
         }
         
-        .radio-option input {
-            width: auto;
-        }
 
+        /* RADIO BUTTON FIXES FOR ALL DEVICES */
         .radio-option input[type="radio"] {
-        outline: none !important;
-        box-shadow: none !important;
-    }
-
-        /* Suppression du focus outline par défaut et ajout d'un style personnalisé */
-        .radio-option input[type="radio"]:focus {
-            outline: none;
-            box-shadow: none !important;
+            width: auto !important;
+            -webkit-tap-highlight-color: transparent !important; /* Remove tap highlight on iOS */
         }
 
+
+        /* Remove all focus styles */
+        .radio-option input[type="radio"]:focus {
+            outline: none !important;
+            box-shadow: none !important;
+            border-color: #ccc !important;
+        }
         
         .radio-option label {
             margin-bottom: 0;
@@ -382,24 +381,7 @@
         .field-error {
             border-color: #d63031 !important;
         }
-        
-        /* CORRECTION DES BOUTONS RADIO SUR MOBILE */
-        @media (max-width: 768px) {
-            .radio-option input {
-                transform: scale(1); /* Taille normale sur mobile */
-            }
             
-            .radio-group {
-                padding: 10px 12px; /* Padding réduit */
-                min-height: 44px; /* Hauteur réduite */
-                gap: 10px; /* Espacement réduit */
-            }
-            
-            .radio-option label {
-                font-size: 13px; /* Texte légèrement plus petit */
-            }
-        }
-                
         @media (max-width: 1200px) {
             /* Adaptation des images pour tablette */
             .bg-1 {
@@ -468,6 +450,16 @@
                 font-size: 16px;
                 min-height: 52px;
             }
+
+            .radio-group {
+                padding: 12px 14px !important; /* Use desktop padding */
+                min-height: 48px !important; /* Use desktop height */
+                gap: 15px !important; /* Use desktop gap */
+            }
+            
+            .radio-option label {
+                font-size: 14px !important; /* Use desktop font size */
+            }
             
             .form-group {
                 margin-bottom: 20px;
@@ -475,11 +467,6 @@
             
             .name-fields {
                 gap: 12px;
-            }
-            
-            .radio-group {
-                padding: 10px 12px; /* CORRECTION */
-                min-height: 44px; /* CORRECTION */
             }
 
             
@@ -587,9 +574,6 @@
                 width: auto; /* CORRECTION */
             }
             
-            .radio-option input {
-                transform: scale(1); /* Taille normale */
-            }
             
             button {
                 padding: 15px 18px;
