@@ -73,8 +73,8 @@
         .bg-3 {
             background-image: url('images/dd.png');
             width: 35vw;
-            height: 17vw;
-            bottom: 25vh;
+            height: 13vw;
+            bottom: 19vh;
             left: 7.3vw;
         }
         
@@ -82,7 +82,7 @@
             background-image: url('images/dddd.png');
             width: 16vw;
             height: 17vw;
-            bottom: 20vh;
+            bottom: 3.1vh;
             right: 20vw;
         }
         
@@ -495,219 +495,39 @@
             .background-images {
                 display: none;
             }
-        }
+            /* Adaptation des images pour mobile */
+            .bg-1 {
+                width: 45vw;
+                height: 18.2vw;
+                top: 6vh;
+                left: 2vw;
+            }
+            
+            .bg-2 {
+                width: 42vw;
+                height: 24.1vw;
+                top: 1.5vh;
+                right: 4vw;
+            }
+            
+            .bg-3 {
+                width: 38vw;
+                height: 16.1vw;
+                bottom: 9vh;
+                left: 4vw;
+            }
+            
+            .bg-4 {
+                width: 25vw;
+                height: 19.7vw;
+                bottom: 2.5vh;
+                right: 8vw;
+            }
 
-        /* MOBILE LANDSCAPE - FIX FOR ROTATION */
-        @media (max-width: 768px) and (orientation: landscape) {
-            .background-images {
-                display: block;
-            }
-            
-            /* NEW: Fixed positioning for landscape orientation */
-            .bg-1 {
-                width: 20vw;
-                height: 20vw;
-                top: 5vh;
-                left: 2vw;
-            }
-            
-            .bg-2 {
-                width: 20vw;
-                height: 20vw;
-                top: 5vh;
-                right: 2vw;
-            }
-            
-            .bg-3 {
-                width: 20vw;
-                height: 20vw;
-                bottom: 5vh;
-                left: 2vw;
-            }
-            
-            .bg-4 {
-                width: 20vw;
-                height: 20vw;
-                bottom: 5vh;
-                right: 2vw;
-            }
-            
-            .container {
-                margin-top: 10px;
-            }
-            
-            .mobile-banner {
-                height: 120px;
-                margin-bottom: 10px;
-            }
-            
-            .form-container {
-                padding: 15px 15px;
-            }
-        }
-
-        /* NEW: iPAD SPECIFIC FIXES */
-        @media (min-width: 768px) and (max-width: 1024px) {
-            /* Fix for iPad portrait and landscape */
-            .bg-1 {
-                width: 25vw;
-                height: 25vw;
-                top: 5vh;
-                left: 2vw;
-            }
-            
-            .bg-2 {
-                width: 25vw;
-                height: 25vw;
-                top: 5vh;
-                right: 5vw;
-            }
-            
-            .bg-3 {
-                width: 25vw;
-                height: 25vw;
-                bottom: 5vh;
-                left: 2vw;
-            }
-            
-            .bg-4 {
-                width: 25vw;
-                height: 25vw;
-                bottom: 5vh;
-                right: 2vw;
-            }
-        }
-                /* NEW: FIX FOR ORIENTATION CHANGES */
-        @media (orientation: landscape) and (max-height: 1200px) {
-            /* For very short landscape screens (mobile landscape) */
-            .background-images {
-                display: block;
-            }
-            
-            .bg-1 {
-                width: 30vw;
-                height: 20vw;
-                top: 5vh;
-                left: 2vw;
-            }
-            
-            .bg-2 {
-                width: 25vw;
-                height: 25vw;
-                top: 5vh;
-                right: 5vw;
-            }
-            
-            .bg-3 {
-                width: 25vw;
-                height: 15vw;
-                bottom: 25vh;
-                left: 5vw;
-            }
-            
-            .bg-4 {
-                width: 17vw;
-                height: 25vw;
-                bottom: 5vh;
-                right: 9vw;
-            }
-            
-            .container {
-                margin-top: 5px;
-            }
-            
-            .mobile-banner {
-                height: 80px;
-                margin-bottom: 5px;
-            }
-            
-            .form-container {
-                padding: 10px 15px;
-            }
-        }
-
-                /* NEW: FIX FOR ORIENTATION CHANGES */
-        @media (orientation: landscape) and (max-height: 900px) {
-            /* For very short landscape screens (mobile landscape) */
-            .background-images {
-                display: block;
-            }
-            
-            .bg-1 {
-                width: 35vw;
-                height: 20vw;
-                top: 5vh;
-                left: 2vw;
-            }
-            
-            .bg-2 {
-                width: 27vw;
-                height: 30vw;
-                top: 5vh;
-                right: 5vw;
-            }
-            
-            .bg-3 {
-                width: 30vw;
-                height: 20vw;
-                bottom: 35vh;
-                left: 5vw;
-            }
-            
-            .bg-4 {
-                width: 20vw;
-                height: 25vw;
-                bottom: 18vh;
-                right: 10vw;
-            }
-        }
-
-        /* NEW: FIX FOR ORIENTATION CHANGES */
-        @media (orientation: landscape) and (max-height: 500px) {
-            /* For very short landscape screens (mobile landscape) */
-            .background-images {
-                display: block;
-            }
-            
-            .bg-1 {
-                width: 30vw;
-                height: 20vw;
-                top: 5vh;
-                left: 2vw;
-            }
-            
-            .bg-2 {
-                width: 25vw;
-                height: 25vw;
-                top: 5vh;
-                right: 5vw;
-            }
-            
-            .bg-3 {
-                width: 25vw;
-                height: 15vw;
-                bottom: 25vh;
-                left: 5vw;
-            }
-            
-            .bg-4 {
-                width: 17vw;
-                height: 25vw;
-                bottom: 5vh;
-                right: 9vw;
-            }
-            
-            .container {
-                margin-top: 5px;
-            }
-            
-            .mobile-banner {
-                height: 80px;
-                margin-bottom: 5px;
-            }
-            
-            .form-container {
-                padding: 10px 15px;
+            .popup-message {
+                top: 15px;
+                width: 90%;
+                padding: 14px 20px;
             }
         }
 
@@ -772,6 +592,45 @@
                 width: 170px;
                 height: 50px;
             }
+            
+            /* Adaptation des images pour mobile très petit */
+            .bg-1 {
+                width: 60vw;
+                height: 70vw;
+                top: 5vh;
+                left: 2vw;
+            }
+            
+            .bg-2 {
+                width: 47vw;
+                height: 30.9vw;
+                top: 1vh;
+                right: 1vw;
+            }
+            
+            .bg-3 {
+                width: 43vw;
+                height: 20.7vw;
+                bottom: 7vh;
+                left: 2vw;
+            }
+            
+            .bg-4 {
+                width: 28vw;
+                height: 25.3vw;
+                bottom: 2vh;
+                right: 4vw;
+            }
+            
+            footer {
+                padding: 8px 0 0 0;
+            }
+            
+            .copyright-container {
+                padding: 6px 0;
+                font-size: 11px;
+                margin-top: 8px;
+            }
         }
         
         /* POUR LES TRÈS PETITS ÉCRANS (iPhone 5/SE) */
@@ -801,6 +660,10 @@
                 min-height: 52px;
             }
             
+            .bg-1, .bg-2, .bg-3, .bg-4 {
+                opacity: 0.6;
+            }
+
             .brand-logo {
                 width: 150px;
                 height: 50px;
@@ -819,30 +682,6 @@
             .form-container {
                 max-width: 480px;
                 padding: 40px 35px;
-            }
-            .bg-1 {
-                width: 45vw;
-                height: 18vw;
-                top: 7vh;
-                left: 2vw;
-            }
-            .bg-2 {
-                width: 30vw;
-                height: 26vw;
-                top: 2vh;
-                right: 12vw;
-            }
-            .bg-3 {
-                width: 40vw;
-                height: 18vw;
-                bottom: 19vh;
-                left: 7.3vw;
-            }
-            .bg-4 {
-                width: 20vw;
-                height: 19vw;
-                bottom: 15vh;
-                right: 20vw;
             }
         }
     </style>
@@ -953,7 +792,7 @@
                 </div>
             </div>
             <div class="copyright-container">
-                <p>COPYRIGHT &copy; GROUPE SEB 2025 / Tous les droits sont réservés.</p>
+                <p>COPYRIGHT &copy; GROUPESEB 2025 / Tous les droits sont réservés.</p>
             </div>
         </footer>
     </div>
