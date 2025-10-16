@@ -199,8 +199,12 @@
         
         .radio-option input {
             width: auto;
-            transform: scale(1.2); /* Taille normale pour desktop */
         }
+
+        .radio-option input[type="radio"] {
+        outline: none !important;
+        box-shadow: none !important;
+    }
 
         /* Suppression du focus outline par défaut et ajout d'un style personnalisé */
         .radio-option input[type="radio"]:focus {
@@ -477,6 +481,7 @@
                 padding: 10px 12px; /* CORRECTION */
                 min-height: 44px; /* CORRECTION */
             }
+
             
             button {
                 padding: 16px 20px;
@@ -492,6 +497,7 @@
                 justify-items: center;
                 margin-bottom: 40px;
             }
+        
             
             .brand-logo {
                 width: 170px;
