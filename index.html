@@ -103,6 +103,24 @@
             justify-content: center;
             width: 100%;
         }
+
+        /* Mobile banner - hidden by default */
+        .mobile-banner {
+            display: none;
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .mobile-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
         
         /* Formulaire compact - AMÉLIORATIONS MOBILE */
         .form-container {
@@ -292,11 +310,13 @@
             justify-content: center;
             gap: 100px;
             flex-wrap: wrap;
+            margin-bottom: 25px;
+            margin-top: 5px;
         }
         
         .brand-logo {
-            width: 120px;
-            height: 60px;
+            width: 150px;
+            height: 70px;
             background-color: transparent;
             display: flex;
             align-items: center;
@@ -379,15 +399,15 @@
         @media (max-width: 1200px) {
             /* Adaptation des images pour tablette */
             .bg-1 {
-                width: 40vw;
-                height: 50vw;
-                top: 5vh;
+                width: 30vw;
+                height: 30vw;
+                top: 3vh;
                 left: 2vw;
             }
             
             .bg-2 {
                 width: 35vw;
-                height: 30.6vw;
+                height: 25;
                 top: 2vh;
                 right: 6vw;
             }
@@ -395,30 +415,37 @@
             .bg-3 {
                 width: 39vw;
                 height: 48vw;
-                bottom: 35vh;
-                left: 6vw;
+                bottom: 42vh;
+                left: 4vw;
             }
             
             .bg-4 {
                 width: 27vw;
                 height: 25vw;
-                bottom: 50vh;
+                bottom: 48vh;
                 right: 8vw;
             }
 
             .brands-logos {
                 gap: 45px;
+                margin-bottom: 30px;
+                margin-top: 5px;
             }
         }
         
         /* MOBILE - AMÉLIORATIONS IMPORTANTES */
         @media (max-width: 768px) {
             .container {
-                padding: 15px;
-                margin-top: 30px;
+                padding: 13px;
+                margin-top: 15px;
                 max-width: 100%;
             }
-            
+
+            /* Show mobile header image only on mobile */
+            .mobile-banner {
+                display: block;
+            }
+
             .form-container {
                 padding: 25px 20px;
                 margin: 0 10px;
@@ -463,13 +490,18 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
                 justify-items: center;
+                margin-bottom: 40px;
             }
             
             .brand-logo {
-                width: 110px;
+                width: 170px;
                 height: 55px;
             }
             
+            /* Hide background images on mobile */
+            .background-images {
+                display: none;
+            }
             /* Adaptation des images pour mobile */
             .bg-1 {
                 width: 45vw;
@@ -563,10 +595,11 @@
             .brands-logos {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
+                margin-bottom: 50px;
             }
             
             .brand-logo {
-                width: 100px;
+                width: 170px;
                 height: 50px;
             }
             
@@ -674,6 +707,10 @@
 
         <div class="container">
             <div class="main-content">
+                <!-- ADD THIS NEW MOBILE IMAGE DIV -->
+                <div class="mobile-banner">
+                    <img src="images/mobile-header.png" alt="Krups">
+                </div>
                 <div class="form-container">
                     <h1>Enregistrez vos informations</h1>
                     
