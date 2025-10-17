@@ -3,698 +3,850 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="icon.ico">
-    <title>KRUPS</title>
+    <title>Groupe SEB</title>
     <style>
-        /* Reset et styles de base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #47525e;
-            color: #333;
-            line-height: 1.4;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow-x: hidden;
-            width: 100%;
-        }
-        
-        /* NOUVELLE STRUCTURE POUR GÉRER LE SCROLL */
-        .page-wrapper {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        
-        /* Nouvelle disposition des images avec vw/vh */
-        .background-images {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        .bg-image {
-            position: absolute;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.8;
-        }
-        
-        /* Positionnement avec vw/vh pour s'adapter à toutes les résolutions */
-        .bg-1 {
-            background-image: url('images/ddd.png');
-            width: 40vw;
-            height: 15vw;
-            top: 7vh;
-            left: 2vw;
-        }
-        
-        .bg-2 {
-            background-image: url('images/d.png');
-            width: 27vw;
-            height: 24vw;
-            top: 2vh;
-            right: 12vw;
-        }
-        
-        .bg-3 {
-            background-image: url('images/dd.png');
-            width: 35vw;
-            height: 13vw;
-            bottom: 19vh;
-            left: 7.3vw;
-        }
-        
-        .bg-4 {
-            background-image: url('images/dddd.png');
-            width: 16vw;
-            height: 17vw;
-            bottom: 3.1vh;
-            right: 20vw;
-        }
-        
-        .container {
-            max-width: 450px;
-            margin: 15px auto;
-            margin-top: 50px;
-            padding: 12px;
-            flex: 1;
-            width: 100%;
-        }
-        
-        /* Section principale */
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-        }
-
-        /* Mobile banner - hidden by default */
-        .mobile-banner {
-            display: none;
-            width: 100%;
-            height: 200px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .mobile-banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-        
-        /* Formulaire compact - AMÉLIORATIONS MOBILE */
-        .form-container {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            padding: 35px 30px;
-            width: 100%;
-            backdrop-filter: blur(5px);
-            max-width: 450px;
-            margin: 0 auto;
-        }
-        
-        h1 {
-            text-align: center;
-            margin: 0 0 25px 0;
-            color: #47525e;
-            font-size: 22px;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        
-        .form-group {
-            margin-bottom: 18px;
-        }
-        
-        /* Nouveau conteneur pour Nom et Prénom côte à côte */
-        .name-fields {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 500;
-            color: #47525e;
-            font-size: 14px;
-        }
-        
-        input, select {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 16px;
-            transition: all 0.3s;
-            background-color: #fefbf6;
-            min-height: 48px;
-        }
-        
-        input:focus, select:focus {
-            border-color: #47525e;
-            outline: none;
-            background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(71, 82, 94, 0.15);
-        }
-   
-        .radio-group {
-            display: flex;
-            gap: 15px;
-            background-color: #fefbf6;
-            padding: 12px 14px;
-            border-radius: 6px;
-            border: 1px solid #e0e0e0;
-            min-height: 48px;
-            align-items: center;
-        }
-        
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-
-        /* RADIO BUTTON FIXES FOR ALL DEVICES */
-        .radio-option input[type="radio"] {
-            width: auto !important;
-            -webkit-tap-highlight-color: transparent !important; /* Remove tap highlight on iOS */
-        }
-
-
-        /* Remove all focus styles */
-        .radio-option input[type="radio"]:focus {
-            outline: none !important;
-            box-shadow: none !important;
-            border-color: #ccc !important;
-        }
-        
-        .radio-option label {
-            margin-bottom: 0;
-            font-weight: normal;
-            font-size: 14px;
-        }
-        
-        button {
-            background-color: #47525e;
-            color: white;
-            border: none;
-            padding: 14px 20px;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s;
-            margin: 10px 0 5px 0;
-            min-height: 52px;
-        }
-        
-        button:hover {
-            background-color: #6b727a;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        
-        /* Popup messages */
-        .popup-message {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 16px 24px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            animation: slideDown 0.3s ease-out;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-        }
-        
-        .popup-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .popup-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        }
-        
-        .popup-hide {
-            animation: slideUp 0.3s ease-in forwards;
-        }
-        
-        @keyframes slideUp {
-            from {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateX(-50%) translateY(-20px);
-            }
-        }
-        
-        /* Section logos des marques */
-        .brands-section {
-            text-align: center;
-            margin-bottom: 0px;
-        }
-        
-        .brands-title {
-            margin-bottom: 12px;
-            color: #2c3e50;
-            font-size: 15px;
-            font-weight: 500;
-        }
-        
-        .brands-logos {
-            display: flex;
-            justify-content: center;
-            gap: 100px;
-            flex-wrap: wrap;
-            margin-bottom: 25px;
-            margin-top: 5px;
-        }
-        
-        .brand-logo {
-            width: 150px;
-            height: 70px;
-            background-color: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: none;
-            padding: 6px;
-        }
-        
-        .brand-logo img {
-            max-width: 100%;
-            max-height: 100%;
-            filter: brightness(0) invert(1);
-        }
-        
-        /* Footer avec arrière-plan sombre - CORRECTION */
-        footer {
-            text-align: center;
-            color: #ffffff;
-            font-size: 12px;
-            background-color: #47525e;
-            border-radius: 0;
-            width: 100%;
-            /* Supprimer margin-top: auto et ajouter ces propriétés */
-            position: relative;
-            z-index: 10;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        .copyright-container {
-            background-color: #5a6775;
-            width: 100%;
-            padding: 8px 0;
-            margin-top: 10px;
-            margin-bottom: 0;
-        }
-
-        .copyright-container p {
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Messages d'erreur */
-        .error {
-            color: #d63031;
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
-        }
-        
-        .error.show {
-            display: block;
-        }
-        
-        .field-error {
-            border-color: #d63031 !important;
-        }
-            
-        @media (max-width: 1200px) {
-            /* Adaptation des images pour tablette */
-            .bg-1 {
-                width: 30vw;
-                height: 30vw;
-                top: 3vh;
-                left: 2vw;
+            /* Reset et styles de base */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
             
-            .bg-2 {
-                width: 35vw;
-                height: 25;
-                top: 2vh;
-                right: 6vw;
-            }
-            
-            .bg-3 {
-                width: 39vw;
-                height: 48vw;
-                bottom: 42vh;
-                left: 4vw;
-            }
-            
-            .bg-4 {
-                width: 27vw;
-                height: 25vw;
-                bottom: 48vh;
-                right: 8vw;
-            }
+            body {
 
-            .brands-logos {
-                gap: 45px;
-                margin-bottom: 30px;
-                margin-top: 5px;
+                background: url('images/bg.jpg') center no-repeat;
+                background-size: cover;
+                color: #333;
+                line-height: 1.4;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                overflow-x: hidden;
+                width: 100%;
             }
-        }
-        
-        /* MOBILE - AMÉLIORATIONS IMPORTANTES */
-        @media (max-width: 768px) {
+            
+            /* NOUVELLE STRUCTURE POUR GÉRER LE SCROLL */
+            .page-wrapper {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            
+            /* Single background image - UPDATED FOR 100% WIDTH */
+            .background-image {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('images/background.png');
+                background-size: 100% auto; /* Changed to 100% width, auto height */
+                background-position: top center;
+                background-repeat: no-repeat;
+                z-index: -1;
+                pointer-events: none;
+            }
+            
             .container {
-                padding: 13px;
-                margin-top: 15px;
-                max-width: 100%;
+                max-width: 450px;
+                margin: 15px auto;
+                margin-top: 50px;
+                padding: 12px;
+                flex: 1;
+                width: 100%;
+            }
+            
+            /* Section principale */
+            .main-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
             }
 
-            /* Show mobile header image only on mobile */
+            /* Mobile banner - hidden by default */
             .mobile-banner {
-                display: block;
+                display: none;
+                width: 100%;
+                height: 100%;
+                margin-bottom: 20px;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             }
 
+            .mobile-banner img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+                object-position: center;
+            }
+            
+            /* Formulaire compact - AMÉLIORATIONS MOBILE */
             .form-container {
-                padding: 25px 20px;
-                margin: 0 10px;
-                width: calc(100% - 20px);
-                max-width: none;
-                border-radius: 10px;
+                background-color: rgba(255, 255, 255, 0.95);
+                border-radius: 8px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                padding: 35px 30px;
+                width: 100%;
+                backdrop-filter: blur(5px);
+                max-width: 450px;
+                margin: 0 auto;
             }
             
             h1 {
-                font-size: 20px;
-                margin: 0 0 20px 0;
-            }
-            
-            input, select {
-                padding: 14px 12px;
-                font-size: 16px;
-                min-height: 52px;
-            }
-
-            .radio-group {
-                padding: 12px 14px !important; /* Use desktop padding */
-                min-height: 48px !important; /* Use desktop height */
-                gap: 15px !important; /* Use desktop gap */
-            }
-            
-            .radio-option label {
-                font-size: 14px !important; /* Use desktop font size */
+                text-align: center;
+                margin: 0 0 25px 0;
+                color: #47525e;
+                font-size: 22px;
+                font-weight: 600;
+                line-height: 1.3;
             }
             
             .form-group {
-                margin-bottom: 20px;
+                margin-bottom: 18px;
             }
             
+            /* Nouveau conteneur pour Nom et Prénom côte à côte */
             .name-fields {
-                gap: 12px;
-            }
-
-            
-            button {
-                padding: 16px 20px;
-                font-size: 17px;
-                min-height: 56px;
-                margin: 15px 0 8px 0;
-            }
-            
-            .brands-logos {
                 display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-                justify-items: center;
-                margin-bottom: 40px;
-            }
-        
-            
-            .brand-logo {
-                width: 170px;
-                height: 55px;
-            }
-            
-            /* Hide background images on mobile */
-            .background-images {
-                display: none;
-            }
-            /* Adaptation des images pour mobile */
-            .bg-1 {
-                width: 45vw;
-                height: 18.2vw;
-                top: 6vh;
-                left: 2vw;
-            }
-            
-            .bg-2 {
-                width: 42vw;
-                height: 24.1vw;
-                top: 1.5vh;
-                right: 4vw;
-            }
-            
-            .bg-3 {
-                width: 38vw;
-                height: 16.1vw;
-                bottom: 9vh;
-                left: 4vw;
-            }
-            
-            .bg-4 {
-                width: 25vw;
-                height: 19.7vw;
-                bottom: 2.5vh;
-                right: 8vw;
-            }
-
-            .popup-message {
-                top: 15px;
-                width: 90%;
-                padding: 14px 20px;
-            }
-        }
-
-        /* MOBILE TRÈS PETIT - OPTIMISATIONS SUPPLÉMENTAIRES */
-        @media (max-width: 500px) {
-            .container {
-                padding: 10px;
-                margin-top: 20px;
-            }
-            
-            .form-container {
-                padding: 22px 18px;
-                margin: 0 8px;
-                width: calc(100% - 16px);
-                border-radius: 8px;
-            }
-            
-            h1 {
-                font-size: 19px;
-                margin: 0 0 18px 0;
-            }
-            
-            /* Sur mobile très petit, retour à la disposition verticale */
-            .name-fields {
-                grid-template-columns: 1fr;
-                gap: 18px;
-            }
-            
-            input, select {
-                padding: 13px 12px;
-                min-height: 50px;
-                font-size: 16px;
-            }
-            
-            .radio-group {
-                flex-direction: row;
-                gap: 5px;
-                padding: 8px 12px; /* CORRECTION */
-                align-items: center; /* CORRECTION */
-                min-height: 42px; /* CORRECTION */
-            }
-            
-            .radio-option {
-                width: auto; /* CORRECTION */
-            }
-            
-            
-            button {
-                padding: 15px 18px;
-                font-size: 16px;
-                min-height: 54px;
-                margin: 12px 0 6px 0;
-            }
-            
-            .brands-logos {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr 1fr;
                 gap: 15px;
-                margin-bottom: 50px;
             }
             
-            .brand-logo {
-                width: 170px;
-                height: 50px;
-            }
-            
-            /* Adaptation des images pour mobile très petit */
-            .bg-1 {
-                width: 60vw;
-                height: 70vw;
-                top: 5vh;
-                left: 2vw;
-            }
-            
-            .bg-2 {
-                width: 47vw;
-                height: 30.9vw;
-                top: 1vh;
-                right: 1vw;
-            }
-            
-            .bg-3 {
-                width: 43vw;
-                height: 20.7vw;
-                bottom: 7vh;
-                left: 2vw;
-            }
-            
-            .bg-4 {
-                width: 28vw;
-                height: 25.3vw;
-                bottom: 2vh;
-                right: 4vw;
-            }
-            
-            footer {
-                padding: 8px 0 0 0;
-            }
-            
-            .copyright-container {
-                padding: 6px 0;
-                font-size: 11px;
-                margin-top: 8px;
-            }
-        }
-        
-        /* POUR LES TRÈS PETITS ÉCRANS (iPhone 5/SE) */
-        @media (max-width: 360px) {
-            .form-container {
-                padding: 20px 15px;
-                margin: 0 5px;
-                width: calc(100% - 10px);
-            }
-            
-            h1 {
-                font-size: 16px;
+            label {
+                display: block;
+                margin-bottom: 6px;
+                font-weight: 500;
+                color: #47525e;
+                font-size: 14px;
             }
             
             input, select {
-                padding: 12px 10px;
+                width: 100%;
+                padding: 12px 14px;
+                border: 1px solid #e0e0e0;
+                border-radius: 6px;
+                font-size: 16px;
+                transition: all 0.3s;
+                background-color: #fefbf6;
                 min-height: 48px;
             }
             
+            input:focus, select:focus {
+                border-color: #47525e;
+                outline: none;
+                background-color: #fff;
+                box-shadow: 0 0 0 3px rgba(71, 82, 94, 0.15);
+            }
+    
             .radio-group {
-                padding: 6px 10px; /* CORRECTION */
-                min-height: 40px; /* CORRECTION */
+                display: flex;
+                gap: 15px;
+                background-color: #fefbf6;
+                padding: 12px 14px;
+                border-radius: 6px;
+                border: 1px solid #e0e0e0;
+                min-height: 48px;
+                align-items: center;
+            }
+            
+            .radio-option {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            
+
+            /* RADIO BUTTON FIXES FOR ALL DEVICES */
+            .radio-option input[type="radio"] {
+                width: auto !important;
+                -webkit-tap-highlight-color: transparent !important; /* Remove tap highlight on iOS */
+            }
+
+
+            /* Remove all focus styles */
+            .radio-option input[type="radio"]:focus {
+                outline: none !important;
+                box-shadow: none !important;
+                border-color: #ccc !important;
+            }
+            
+            .radio-option label {
+                margin-bottom: 0;
+                font-weight: normal;
+                font-size: 14px;
+            }
+            
+            /* Styles pour la case à cocher et le texte de consentement */
+            .consent-group {
+                margin: 25px 0 15px;
+                padding: 15px;
+                background-color: #f8f9fa;
+                border-radius: 6px;
+                border: 1px solid #e9ecef;
+            }
+
+            .consent-checkbox {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                margin-bottom: 12px;
+            }
+            
+            .consent-checkbox input[type="checkbox"] {
+                width: auto;
+                margin-top: 3px;
+                min-height: auto;
+                outline: none;
+                box-shadow: none;
+            }
+            
+            .consent-checkbox label {
+                font-size: 14px;
+                line-height: 1.4;
+                color: #495057;
+                font-weight: 500;
+                text-align:center;
+            }
+            
+            .consent-text {
+                font-size: 12px;
+                line-height: 1.5;
+                color: #6c757d;
+                text-align: center;
             }
             
             button {
-                padding: 14px 16px;
+                background-color: #47525e;
+                color: white;
+                border: none;
+                padding: 14px 20px;
+                border-radius: 6px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                width: 100%;
+                transition: all 0.3s;
+                margin: 10px 0 5px 0;
                 min-height: 52px;
+                position: relative;
             }
             
-            .bg-1, .bg-2, .bg-3, .bg-4 {
-                opacity: 0.6;
+            button:hover {
+                background-color: #6b727a;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+            button:disabled {
+                background-color: #ccc;
+                cursor: not-allowed;
+                transform: none;
+                box-shadow: none;
             }
 
+
+            /* Loading spinner */
+            .loading-spinner {
+                display: none;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 20px;
+                height: 20px;
+                border: 2px solid #ffffff30;
+                border-top: 2px solid #ffffff;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+            
+            @keyframes spin {
+                0% { transform: translate(-50%, -50%) rotate(0deg); }
+                100% { transform: translate(-50%, -50%) rotate(360deg); }
+            }
+            
+            /* Popup messages */
+            .popup-message {
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 16px 24px;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 500;
+                z-index: 1000;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                animation: slideDown 0.3s ease-out;
+                max-width: 400px;
+                width: 90%;
+                text-align: center;
+            }
+            
+            .popup-success {
+                background-color: #d4edda;
+                color: #155724;
+                border: 1px solid #c3e6cb;
+            }
+            
+            .popup-error {
+                background-color: #f8d7da;
+                color: #721c24;
+                border: 1px solid #f5c6cb;
+            }
+
+                    
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
+            }
+            
+            .popup-hide {
+                animation: slideUp 0.3s ease-in forwards;
+            }
+            
+            @keyframes slideUp {
+                from {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(-20px);
+                }
+            }
+            
+            /* Section logos des marques */
+            .brands-section {
+                text-align: center;
+                margin-bottom: 0px;
+            }
+            
+            .brands-title {
+                margin-bottom: 12px;
+                color: #2c3e50;
+                font-size: 15px;
+                font-weight: 500;
+            }
+            
+            .brands-logos {
+                display: flex;
+                justify-content: center;
+                gap: 100px;
+                flex-wrap: wrap;
+                margin-bottom: 25px;
+                margin-top: 5px;
+            }
+            
             .brand-logo {
                 width: 150px;
-                height: 50px;
-            }
-            .copyright-container {
-             font-size: 9px;
-            }
-        }
-
-        /* POUR LES GRANDS ÉCRANS */
-        @media (min-width: 1400px) {
-            .container {
-                max-width: 480px;
+                height: 70px;
+                background-color: transparent;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: none;
+                padding: 6px;
             }
             
-            .form-container {
-                max-width: 480px;
-                padding: 40px 35px;
+            .brand-logo img {
+                max-width: 100%;
+                max-height: 100%;
+                filter: brightness(0) invert(1);
             }
-        }
-    </style>
+            
+            /* Footer avec arrière-plan sombre - CORRECTION */
+            footer {
+                text-align: center;
+                color: #ffffff;
+                font-size: 12px;
+                border-radius: 0;
+                width: 100%;
+                /* Supprimer margin-top: auto et ajouter ces propriétés */
+                position: relative;
+                z-index: 10;
+            }
+
+            .footer-content {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 15px;
+            }
+
+            .copyright-container {
+                background-color: #5a6775;
+                width: 100%;
+                padding: 8px 0;
+                margin-top: 10px;
+                margin-bottom: 0;
+            }
+
+            .copyright-container p {
+                margin: 0;
+                padding: 0;
+            }
+
+         
+            
+            /* Loading state for button */
+            .button-loading {
+                position: relative;
+                color: transparent;
+            }
+            
+            .button-loading::after {
+                content: "";
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                top: 50%;
+                left: 50%;
+                margin-left: -10px;
+                margin-top: -10px;
+                border: 2px solid #ffffff;
+                border-radius: 50%;
+                border-top-color: transparent;
+                animation: button-loading-spinner 1s ease infinite;
+            }
+            
+            @keyframes button-loading-spinner {
+                from {
+                    transform: rotate(0turn);
+                }
+                to {
+                    transform: rotate(1turn);
+                }
+            }
+            
+            /* POUR LES APPAREILS EN MODE PAYSAGE - MAINTENIR L'IMAGE À 100% */
+            @media (max-width: 1200px) and (orientation: landscape) {
+                .background-image {
+                    display: block !important;
+                    background-size: 100% auto;
+                    background-position: top center;
+                }
+                
+                .brands-logos {
+                    gap: 45px;
+                    margin-bottom: 30px;
+                    margin-top: 5px;
+                }
+            }
+            
+            @media (max-width: 1200px) {
+                .brands-logos {
+                    gap: 45px;
+                    margin-bottom: 30px;
+                    margin-top: 5px;
+                }
+            }
+            
+            /* MOBILE - AMÉLIORATIONS IMPORTANTES */
+            @media (max-width: 768px) {
+                .container {
+                    padding: 13px;
+                    margin-top: 15px;
+                    max-width: 100%;
+                }
+
+                /* Show mobile header image only on mobile */
+                .mobile-banner {
+                    display: block;
+                }
+
+                .form-container {
+                    padding: 25px 20px;
+                    margin: 0 10px;
+                    width: calc(100% - 20px);
+                    max-width: none;
+                    border-radius: 10px;
+                }
+                
+                h1 {
+                    font-size: 20px;
+                    margin: 0 0 20px 0;
+                }
+                
+                input, select {
+                    padding: 14px 12px;
+                    font-size: 16px;
+                    min-height: 52px;
+                }
+
+                .radio-group {
+                    padding: 12px 14px !important; /* Use desktop padding */
+                    min-height: 48px !important; /* Use desktop height */
+                    gap: 15px !important; /* Use desktop gap */
+                }
+                
+                .radio-option label {
+                    font-size: 14px !important; /* Use desktop font size */
+                }
+                
+                .form-group {
+                    margin-bottom: 20px;
+                }
+                
+                .name-fields {
+                    gap: 12px;
+                }
+                
+                /* Styles mobiles pour la case à cocher */
+                .consent-group {
+                    margin: 20px 0 15px;
+                    padding: 12px;
+                }
+                
+                .consent-checkbox {
+                    gap: 8px;
+                }
+                
+                .consent-checkbox label {
+                    font-size: 13px;
+                }
+                
+                .consent-text {
+                    font-size: 11px;
+                }
+                
+                button {
+                    padding: 16px 20px;
+                    font-size: 17px;
+                    min-height: 56px;
+                    margin: 15px 0 8px 0;
+                }
+                
+                .brands-logos {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 20px;
+                    justify-items: center;
+                    margin-bottom: 40px;
+                }
+            
+                
+                .brand-logo {
+                    width: 170px;
+                    height: 55px;
+                }
+                
+                /* Hide background image on mobile portrait */
+                .background-image {
+                    display: none;
+                }
+            }
+
+            /* MOBILE LANDSCAPE - FIX FOR ROTATION */
+            @media (max-width: 768px) and (orientation: landscape) {
+                .background-image {
+                    display: none;
+                }
+                
+                .container {
+                    margin-top: 10px;
+                }
+                
+                
+                .form-container {
+                    padding: 15px 15px;
+                }
+            }
+
+            /* MOBILE LANDSCAPE - FIX FOR ROTATION */
+            @media (max-width: 768px) and (orientation: landscape) {
+                .background-image {
+                    display: block !important;
+                    background-size: 100% auto;
+                    background-position: top center;
+                }
+                
+                /* Hide background for mobile landscape with small height (320x568 and 360x640) */
+                @media (max-height: 640px) {
+                    .background-image {
+                        display: none !important;
+                    }
+                }
+                
+                .container {
+                    margin-top: 10px;
+                }
+                
+                
+                .form-container {
+                    padding: 15px 15px;
+                }
+            }
+
+            /* MOBILE TRÈS PETIT - OPTIMISATIONS SUPPLÉMENTAIRES */
+            @media (max-width: 500px) {
+                .container {
+                    padding: 10px;
+                    margin-top: 20px;
+                }
+                
+                .form-container {
+                    padding: 22px 18px;
+                    margin: 0 8px;
+                    width: calc(100% - 16px);
+                    border-radius: 8px;
+                }
+                
+                h1 {
+                    font-size: 19px;
+                    margin: 0 0 18px 0;
+                }
+                
+                /* Sur mobile très petit, retour à la disposition verticale */
+                .name-fields {
+                    grid-template-columns: 1fr;
+                    gap: 18px;
+                }
+                
+                input, select {
+                    padding: 13px 12px;
+                    min-height: 50px;
+                    font-size: 16px;
+                }
+                
+                .radio-group {
+                    flex-direction: row;
+                    gap: 5px;
+                    padding: 8px 12px; /* CORRECTION */
+                    align-items: center; /* CORRECTION */
+                    min-height: 42px; /* CORRECTION */
+                }
+                
+                .radio-option {
+                    width: auto; /* CORRECTION */
+                }
+                
+                /* Styles mobiles très petits pour la case à cocher */
+                .consent-group {
+                    margin: 18px 0 12px;
+                    padding: 10px;
+                }
+                
+                .consent-checkbox {
+                    gap: 6px;
+                }
+                
+                .consent-checkbox label {
+                    font-size: 12px;
+                }
+                
+                .consent-text {
+                    font-size: 10px;
+                    padding: 0 15px;
+                }
+                
+                button {
+                    padding: 15px 18px;
+                    font-size: 16px;
+                    min-height: 54px;
+                    margin: 12px 0 6px 0;
+                }
+                
+                .brands-logos {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 15px;
+                    margin-bottom: 50px;
+                }
+                
+                .brand-logo {
+                    width: 170px;
+                    height: 50px;
+                }
+                .copyright-container {
+                font-size: 10px;
+                }
+            }
+            
+            /* POUR LES TRÈS PETITS ÉCRANS (iPhone 5/SE) */
+            @media (max-width: 360px) {
+                .form-container {
+                    padding: 20px 15px;
+                    margin: 0 5px;
+                    width: calc(100% - 10px);
+                }
+                
+                h1 {
+                    font-size: 16px;
+                }
+                
+                input, select {
+                    padding: 12px 10px;
+                    min-height: 48px;
+                }
+                
+                .radio-group {
+                    padding: 6px 10px; /* CORRECTION */
+                    min-height: 40px; /* CORRECTION */
+                }
+                
+                /* Styles pour très petits écrans pour la case à cocher */
+                .consent-group {
+                    margin: 15px 0 10px;
+                    padding: 8px;
+                }
+                
+                .consent-checkbox {
+                    gap: 5px;
+                }
+                
+                .consent-checkbox label {
+                    font-size: 11px;
+                }
+                
+                .consent-text {
+                    font-size: 9px;
+                }
+                
+                button {
+                    padding: 14px 16px;
+                    min-height: 52px;
+                }
+                
+                .brand-logo {
+                    width: 150px;
+                    height: 50px;
+                }
+                .copyright-container {
+                font-size: 9px;
+                }
+            }
+
+
+            /* POUR LES GRANDS ÉCRANS - FORMULAIRE PLUS LARGE */
+            @media (min-width: 1400px) {
+                .container {
+                    max-width: 600px; /* Augmenté de 480px à 600px */
+                    margin-top: 60px;
+                }
+                
+                .form-container {
+                    max-width: 600px; /* Augmenté de 480px à 600px */
+                    padding: 45px 40px; /* Plus d'espace intérieur */
+                }
+                
+                h1 {
+                    font-size: 26px; /* Titre plus grand */
+                    margin: 0 0 30px 0;
+                }
+                
+                .form-group {
+                    margin-bottom: 22px; /* Plus d'espace entre les champs */
+                }
+                
+                .name-fields {
+                    gap: 20px; /* Plus d'espace entre nom et prénom */
+                }
+                
+                input, select {
+                    padding: 14px 16px; /* Champs plus grands */
+                    font-size: 17px;
+                    min-height: 52px;
+                }
+                
+                .radio-group {
+                    padding: 14px 16px;
+                    min-height: 52px;
+                    gap: 20px;
+                }
+                
+                .radio-option label {
+                    font-size: 16px;
+                }
+                
+                .consent-group {
+                    margin: 30px 0 20px;
+                    padding: 18px;
+                }
+                
+                .consent-checkbox label {
+                    font-size: 15px;
+                }
+                
+                .consent-text {
+                    font-size: 13px;
+                    padding: 0 25px;
+                }
+                
+                button {
+                    padding: 16px 24px;
+                    font-size: 18px;
+                    min-height: 58px;
+                    margin: 20px 0 10px 0;
+                }
+                
+                .background-image {
+                    background-size: 100% auto;
+                    background-position: top center;
+                }
+            }
+
+            /* Pour les très grands écrans (au-dessus de 1600px) */
+            @media (min-width: 1600px) {
+                .container {
+                    max-width: 650px;
+                }
+                
+                .form-container {
+                    max-width: 650px;
+                    padding: 50px 45px;
+                }
+                
+                h1 {
+                    font-size: 28px;
+                }
+            }
+
+            /* Pour les écrans ultra larges (au-dessus de 1920px) */
+            @media (min-width: 1920px) {
+                .container {
+                    max-width: 700px;
+                    margin-top: 80px;
+                }
+                
+                .form-container {
+                    max-width: 700px;
+                    padding: 55px 50px;
+                }
+                
+                h1 {
+                    font-size: 30px;
+                    margin: 0 0 35px 0;
+                }
+                
+                input, select {
+                    padding: 16px 18px;
+                    font-size: 18px;
+                    min-height: 56px;
+                }
+                
+                button {
+                    padding: 18px 28px;
+                    font-size: 19px;
+                    min-height: 62px;
+                }
+            }
+        </style>
 </head>
 <body>
     <!-- NOUVELLE STRUCTURE POUR GÉRER LE SCROLL -->
     <div class="page-wrapper">
-        <!-- Nouvelle disposition des images -->
-        <div class="background-images">
-            <div class="bg-image bg-1"></div>
-            <div class="bg-image bg-2"></div>
-            <div class="bg-image bg-3"></div>
-            <div class="bg-image bg-4"></div>
+        <!-- Single background image -->
+        <div class="background-image">
         </div>
         
         <!-- Popup messages -->
@@ -765,6 +917,20 @@
                             </select>
                         </div>
                         
+                        <!-- NOUVEAU: Case à cocher et texte de consentement -->
+                        <div class="consent-group">
+                            <div class="consent-checkbox">
+                                <input type="checkbox" id="consent" name="consent" required>
+                                <label for="consent">En soumettant ce formulaire, vous acceptez que vos données soient utilisées uniquement par Groupe SEB MAROC à des fins de contact.</label>
+                            </div>
+                            <div class="consent-text">
+                                Les informations recueillies via ce formulaire sont enregistrées
+                                par Groupe SEB MAROC.
+                                Elles ne seront en aucun cas partagées avec des tiers.
+                                Conformément à la loi 09-08, vous pouvez exercer vos droits d'accès, de rectification et de suppression de vos données en nous contactant à contact@fusion-agency.com.
+                            </div>
+                        </div>
+                        
                         <button type="submit">Soumettre</button>
                     </form>
                 </div>
@@ -792,7 +958,7 @@
                 </div>
             </div>
             <div class="copyright-container">
-                <p>COPYRIGHT &copy; GROUPESEB 2025 / Tous les droits sont réservés.</p>
+                <p>COPYRIGHT &copy; GROUPE SEB MAROC 2025 / Tous les droits sont réservés.</p>
             </div>
         </footer>
     </div>
@@ -847,11 +1013,11 @@
             hideAllErrors();
             
             // Vérifier les champs requis
-            const requiredFields = ['civility', 'lastname', 'firstname', 'birthdate', 'phone', 'email', 'store'];
+            const requiredFields = ['civility', 'lastname', 'firstname', 'birthdate', 'phone', 'email', 'store', 'consent'];
             
             requiredFields.forEach(field => {
                 const input = form.querySelector(`[name="${field}"]`);
-                if (!input.value.trim()) {
+                if (!input || (input.type === 'checkbox' && !input.checked) || (input.type !== 'checkbox' && !input.value.trim())) {
                     showFieldError(field, 'Ce champ est obligatoire');
                     isValid = false;
                 }
